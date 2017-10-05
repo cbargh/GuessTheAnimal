@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuessTheAnimal"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Guess the Animal" Height="400" Width="400" MinHeight="350" MinWidth="350" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" Text="Remember an Animal from the list below" Foreground="#FF0000A0" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="listBoxAnimals" Grid.Column="0" ItemsSource="{Binding AnimalsViewSource.View, UpdateSourceTrigger=PropertyChanged}" Foreground="#FF0000A0" Margin="10,30,0,30" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top" Width="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="- " />
+                                <TextBlock Text="{Binding Path=Name}" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <WrapPanel x:Name="wrapPanelQuestion" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock x:Name="textBlockQuestion" Text="Is it blue?" Margin="10,15,15,15" Foreground="#FF0000A0" />
+                    <StackPanel>
+                        <Button x:Name="btnYes" IsDefault="True" Foreground="#FF0000A0" Width="40" Margin="0,0,0,5" Click="btnYes_Click">Yes</Button>
+                        <Button x:Name="btnNo"  IsCancel="True"  Foreground="#FF0000A0" Width="40" Margin="0,0,0,0" Click="btnNo_Click">No</Button>
+                    </StackPanel>
+                </WrapPanel>
+            </Grid>
+
+            <StackPanel x:Name="stackPanelPlay" Grid.Row="2">
+                <TextBlock x:Name="textBlockPlay" Text="I will try to guess what it is... " Foreground="#FF0000A0" Margin="15,0,0,0" />
+                <Button x:Name="btnPlay" Foreground="#FF0000A0" Margin="10,5,0,0" Width="80" HorizontalAlignment="Left" Click="btnPlay_Click">Let's Play</Button>                
+            </StackPanel>
+            
+            <WrapPanel Grid.Row="3" Margin="0,5,0,5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button x:Name="btnAdd" Foreground="#FF0000A0" Width="120" Margin="0,0,10,0" Click="btnAdd_Click">Add Another Animal</Button>
+            </WrapPanel>
+        </Grid>
     </Grid>
 </Window>
